@@ -1,4 +1,4 @@
-package de.buch.uebung08;
+package de.buch.uebung09;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -21,6 +21,7 @@ public class FahrenheitCelsius extends JFrame {
     private JTextField textCelsius;
     private JButton btnUmrechnen;
     private JButton btnEnde;
+    private JLabel textFehler;
 
     /**
      * Launch the application.
@@ -89,14 +90,23 @@ public class FahrenheitCelsius extends JFrame {
 	btnEnde.addActionListener(e -> System.exit(0));
 	btnEnde.setBounds(215, 98, 117, 29);
 	contentPane.add(btnEnde);
+	
+	textFehler = new JLabel("");
+	textFehler.setBounds(25, 149, 307, 16);
+	contentPane.add(textFehler);
     }
 
     	private void umrechnen() {
+    	try {
 	double fahrenheit = Double.parseDouble(textFahrenheit.getText());
 	double celsius = (fahrenheit - 32) * 5 / 9;
 	DecimalFormat df = new DecimalFormat("#0.00");
 	textCelsius.setText(df.format(celsius));
 	textFahrenheit.requestFocus();
 	textFahrenheit.selectAll();
+    	}
+	catch (NumberFormatException e) {
+	    textFehler.setText("Keine korrekte Fahrenheit-Temperatur");
+	}
     }
 }
